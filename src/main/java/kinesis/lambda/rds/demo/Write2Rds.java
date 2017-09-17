@@ -69,7 +69,9 @@ public class Write2Rds {
             logger.info("Inserted  : " + resultCnt + " record with ID[" + sampleRecord.getId() + "].");
 
         } catch (SQLException e) {
+
             logger.error(e.getSQLState());
+
         }finally{
 
             try {
