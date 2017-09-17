@@ -61,7 +61,7 @@ public class Write2Rds {
 
         try {
             statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME + " values (?,?)");
-            statement.setInt(1, Integer.parseInt(sampleRecord.getId()));
+            statement.setString(1, sampleRecord.getId());
             statement.setString(2, sampleRecord.getContent());
 
             int resultCnt = statement.executeUpdate();
