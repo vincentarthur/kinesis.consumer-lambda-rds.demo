@@ -27,28 +27,35 @@ public class Write2Rds {
     private final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String END_POINT = "jdbc:mysql://vcrdsinstance.c0folbvxtjiy.ap-southeast-2.rds.amazonaws.com:3306/" + DB_NAME;
 
+    private Connection connection = null;
 
     public void receiveRecords(KinesisEvent event) {
+
+        initConnection();
 
         event.getRecords().forEach(
                 record ->
                         write2RDDS(SampleRecord.fromJsonAsBytes(record.getKinesis().getData().array()))
         );
 
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
-     * @param sampleRecord
+     * Init Connection
      */
-    private void write2RDDS(SampleRecord sampleRecord) {
-
+    private void initConnection() {
         try {
             Class.forName(MYSQL_DRIVER);
         } catch (ClassNotFoundException e) {
             logger.error(e.getLocalizedMessage());
         }
-
-        Connection connection = null;
 
         try {
             connection = DriverManager.getConnection(END_POINT, USER_NAME, PASSWORD);
@@ -56,6 +63,12 @@ public class Write2Rds {
             logger.error(e.getSQLState());
         }
 
+    }
+
+    /**
+     * @param sampleRecord
+     */
+    private void write2RDDS(SampleRecord sampleRecord) {
 
         PreparedStatement statement = null;
 
@@ -72,20 +85,12 @@ public class Write2Rds {
 
             logger.error(e.getSQLState());
 
-        }finally{
+        } finally {
 
             try {
                 statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
-
-            if(connection!=null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }
 
