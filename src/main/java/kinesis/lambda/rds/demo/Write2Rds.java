@@ -25,7 +25,7 @@ public class Write2Rds {
     private final String TABLE_NAME = "RDS_DEMO";
 
     private final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final String END_POINT = "jdbc:mysql://vcrdsinstance.c0folbvxtjiy.ap-southeast-2.rds.amazonaws.com:3306/" + DB_NAME;
+    private final String END_POINT = "jdbc:mysql://<>/" + DB_NAME;
 
     private Connection connection = null;
 
