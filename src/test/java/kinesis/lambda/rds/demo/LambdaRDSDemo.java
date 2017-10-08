@@ -17,7 +17,7 @@
 //    private final String PASSWORD = "vc_rds_root";
 //
 //    private final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
-//    private final String END_POINT = "jdbc:mysql://vcrdsinstance.c0folbvxtjiy.ap-southeast-2.rds.amazonaws.com:3306/" + DB_NAME;
+//    private final String END_POINT = "jdbc:mysql://<>/" + DB_NAME;
 //
 //    private Logger logger = LoggerFactory.getLogger(LambdaRDSDemo.class);
 //
